@@ -7,8 +7,8 @@ from dateutil import parser
 
 search_history = {}
 
-def send_post(id):
-    if id in search_history.keys():
+def send_post(id): # Отправка POST запроса для поиска на rsmp.nalog.ru
+    if id in search_history.keys(): # Проверяем был ли поиск с таким запросом
         if "dtQueryBegin" in search_history[id]:
             date_time_str = search_history[id]["dtQueryBegin"]
             new_date = parser.parse(date_time_str)
@@ -17,9 +17,9 @@ def send_post(id):
                 print("return from cache")
                 return search_history[id]
 
-    data = 'mode=quick&page=1&query='+id+'&pageSize=10&sortField=NAME_EX&sort=ASC'
+    data = 'mode=quick&page=1&query='+id+'&pageSize=10&sortField=NAME_EX&sort=ASC' # Тело запроса
     data = data.encode()
-    headers = {}
+    headers = {} # Формируем заголовки
     headers['Host'] = 'rmsp.nalog.ru'
     headers['Connection'] = 'keep-alive'
     headers['Content-Length'] = str(len(data))
@@ -34,7 +34,7 @@ def send_post(id):
     headers['Referer'] = 'https://rmsp.nalog.ru/search.html?mode=quick'
     headers['Accept-Encoding'] = 'gzip, deflate, br'
     headers['Accept-Language'] = 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
-    cookies = {}
+    cookies = {} # Добавляем куки чтобы вызывать меньше подозрений у сервера
     jar = requests.cookies.RequestsCookieJar()
     jar.set('_ym_d','1593178141')
     jar.set('_ym_uid','1593178141869048956')
@@ -46,10 +46,10 @@ def send_post(id):
     jar.set('tmr_reqNum','7')
     jar.set('JSESSIONID','DAE91859BA237ED18120F7DCEAEF50B3')
 
-    r = requests.post('https://rmsp.nalog.ru/search-proc.json', headers = headers, cookies = cookies, data=data)
-    result = json.loads(r.content.decode('utf-8'))
+    r = requests.post('https://rmsp.nalog.ru/search-proc.json', headers = headers, cookies = cookies, data=data) # Отправляем запрос
+    result = json.loads(r.content.decode('utf-8')) # Получаем данные
     fin = {}
-    fin["status"] = 0
+    fin["status"] = 0 # 0 - не найдено, 1 - найдено
     if "dtQueryBegin" in result:
         fin["dtQueryBegin"] = result["dtQueryBegin"]
     else:

@@ -36,14 +36,14 @@ $(document).ready(function() {
                         </tr>`;
                     }
                     else{
-                        var cat = getCategory(results[t]["category"]);
-                        var background = "good";
-                        if (cat == "Микропредприятие"){
-                            background = "bad"
+                        var category = getCategory(results[t]["category"]);
+                        var background_class = "good";
+                        if (category == "Микропредприятие"){
+                            background_class = "bad"
                         }
-                        table_data += `<tr class="`+background+`">
+                        table_data += `<tr class="`+background_class+`">
                             <td>`+t+`</td>
-                            <td>`+cat+`</td>
+                            <td>`+category+`</td>
                             <td>`+results[t]["dtQueryBegin"]+`</td>
                         </tr>`;
                     }
