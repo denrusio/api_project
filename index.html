@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+    <form name="data">
+        <label for="query">ОГРН или ИНН: </label>
+        <input id="query" type="number" name="query" value="" min=0>
+        <input type="radio" name="method" value="get" checked id="radio_get">GET
+        <input type="radio" name="method" value="post" id="radio_post">POST
+        <input type="button" value="Отправить" id="submit">
+    </form>
+    <p id="dataType">Вы ввели:</p>
+    <p id="searchResult">Результат поиска:</p>
+    <div id="searchResults"></div>
+</html>
